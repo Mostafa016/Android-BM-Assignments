@@ -1,51 +1,34 @@
 // Question #1
-fun getFirstItemStartingWithMContainingR(items: List<String>): String? {
-    return items.firstOrNull { item: String -> item[0] == 'M' && item.contains('r') }
-}
+fun getFirstItemStartingWithMContainingR(items: List<String>): String? =
+     items.firstOrNull { item: String -> item[0] == 'M' && item.contains('r') }
 
 // Question #2
-fun getOnlyItemStartingWithMContainingR(items: List<String>) : String?{
-    var count = 0
-    var firstOccurrenceIndex = -1
-    for (index in items.indices){
-        val item = items[index]
-        if(item.first() == 'M' && item.contains('r')) {
-            count++
-            if(count == 1) firstOccurrenceIndex = index
-        }
-    }
-    return if(count == 1) items[firstOccurrenceIndex] else null
-}
+fun getOnlyItemStartingWithMContainingR(items: List<String>) : String? =
+     items.singleOrNull { it.first() == 'M' && it.contains('r') }
+
 
 // Question #3
-fun doesOneElementHaveLengthGECount(items: List<String>, count: Int): Boolean {
-    val index = items.indexOfFirst { item: String -> item.length >= count }
-    return index != -1
-}
+fun doesOneElementHaveLengthGECount(items: List<String>, count: Int): Boolean =
+     items.any { it.length >= count }
+
 
 // Question #4
-fun doElementsHaveLengthGECount(items: List<String>, count: Int): Boolean {
-    for (item in items) {
-        if (item.length < count) return false
-    }
-    return true
-}
+fun doElementsHaveLengthGECount(items: List<String>, count: Int): Boolean =
+    items.all { it.length >= count  }
+
 
 // Question #5
-fun getItemsBeforeItemStartingWithMContainingA(items: List<String>): List<String> {
-    val index = items.indexOfFirst { item: String -> item[0] == 'M' && item.contains('a') }
-    return if (index == -1) emptyList() else items.slice(IntRange(0, index - 1))
-}
+fun getItemsBeforeItemStartingWithMContainingA(items: List<String>): List<String> =
+     items.takeWhile { !(it[0] == 'M' && it.contains('a')) }
+
 
 // Question #6
-fun getItemsStartingFromItemWithLengthEqualCount(items: List<String>, count: Int): List<String> {
-    val index = items.indexOfFirst { item: String -> item.length == count }
-    return if (index == -1) emptyList() else items.slice(IntRange(index, items.lastIndex))
-}
+fun getItemsStartingFromItemWithLengthEqualCount(items: List<String>, count: Int): List<String> =
+     items.dropWhile { it.length != count }
 
 // Question #7
 fun getItemLengths(items: List<String>): List<Int> =
-    List(items.size, init = { index: Int -> items[index].length })
+    items.map { it.length }
 
 fun main() {
     var items: List<String>
